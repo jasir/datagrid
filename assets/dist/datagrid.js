@@ -75,8 +75,20 @@ datagridShiftGroupSelection = function() {
   var last_checkbox;
   last_checkbox = null;
   return document.addEventListener('click', function(e) {
+
+    var getPath = function(e) {
+	    var path = [];
+	    var node = e.target;
+	    while(node != document.body) {
+		    path.push(node);
+		    node = node.parentNode;
+	    }
+	    console.log(path);
+	    return path;
+    };
+
     var checkboxes_rows, current_checkbox_row, el, event, i, ie, input, j, k, last_checkbox_row, last_checkbox_tbody, len, len1, len2, ref, ref1, results, row, rows;
-    ref = e.path;
+    ref = getPath(e);
     for (i = 0, len = ref.length; i < len; i++) {
       el = ref[i];
       if ($(el).is('.col-checkbox') && last_checkbox && e.shiftKey) {
@@ -111,7 +123,7 @@ datagridShiftGroupSelection = function() {
         }
       }
     }
-    ref1 = e.path;
+    ref1 = getPath(e);
     results = [];
     for (k = 0, len2 = ref1.length; k < len2; k++) {
       el = ref1[k];
